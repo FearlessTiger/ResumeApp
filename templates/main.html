@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Home Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+      .subheading {
+        margin-top: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="main.html">My Website</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact Us</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    
+    <div class="col-sm-12 text-center">
+      <h1>See your chances with any college!</h1>
+      <p style="color: blue;">Simply connect your Resume down below and see how you rank amongst other students.</p>
+    </div>
+    
+    <div class="container mt-3">
+      <div class="row">
+        <div class="col-sm-12 text-center">
+          <h2 class="subheading">Upload your Resume</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+          <form action="/upload" method="post" enctype="multipart/form-data">
+            <label for="file">Choose a file:</label>
+            <input type="file" id="file" name="file">
+            <br><br>
+            <input type="submit" value="Upload">
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    <div class="jumbotron text-center mt-3" style="background-color: #f8f9fa;">
+      <h1>My Website</h1>
+      <p>A basic home page created using HTML and Bootstrap.</p>
+      <p><a href="#" class="btn btn-primary btn-lg" role="button">Learn more</a></p>
+    </div>
+    
+    <footer class="container-fluid mt-3 text-center">
+      <p>&copy; My Website 2023</p>
+    </footer>
+  </body>
+</html>
