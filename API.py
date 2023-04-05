@@ -33,4 +33,3 @@ try:
     print(f"The ACT score midpoint (cumulative) is {act_cumulative_midpoint}")
 except:
     print(" \n ERROR, please only put 1 school at a time, and be sure you are spelling the University correctly. \n")
-    
