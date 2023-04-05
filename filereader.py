@@ -10,9 +10,14 @@ def index():
 @app.route("/upload", methods=["POST"])
 def upload():
     file = request.files["file"]
-    pdf_reader = PyPDF2.PdfReader(file)
-    page = pdf_reader.pages[0]
-    return page.extract_text()
+    try:
+        pdf_reader = PyPDF2.PdfReader(file)
+        page = pdf_reader.pages[0]
+        x = page.extract_text()
+        return page.extract_text()
+    except:
+        return "Error"
+
 
 if __name__ == "__main__":
     app.run(debug=True)
