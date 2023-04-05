@@ -7,6 +7,10 @@ app = Flask(__name__)
 def index():
     return render_template("main.html")
 
+@app.route('/start')
+def start():
+    return render_template('start.html')
+
 @app.route("/upload", methods=["POST"])
 def upload():
     file = request.files["file"]
