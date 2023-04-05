@@ -14,6 +14,15 @@
       }
     </style>
   </head>
+  <script>
+    function ChangeToResults(){
+      window.location.href="results.html"
+    }
+    function LearnMore(){
+      window.location.href="LearnMore.html"
+    }
+
+  </script>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="main.html">My Website</a>
@@ -44,12 +53,11 @@
       <div class="row">
         <div class="col-sm-12 text-center">
           <h2 class="subheading">Upload your Resume</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
           <form action="/upload" method="post" enctype="multipart/form-data">
             <label for="file">Choose a file:</label>
             <input type="file" id="file" name="file">
             <br><br>
-            <input type="submit" value="Upload">
+            <button type="button" class="btn btn-primary">Upload</button>
           </form>
         </div>
       </div>
@@ -58,7 +66,7 @@
     <div class="jumbotron text-center mt-3" style="background-color: #f8f9fa;">
       <h1>My Website</h1>
       <p>A basic home page created using HTML and Bootstrap.</p>
-      <p><a href="#" class="btn btn-primary btn-lg" role="button">Learn more</a></p>
+      <p><a href="#" class="btn btn-primary btn-lg" role="button" onClick=LearnMore()>Learn more</a></p>
     </div>
     
     <footer class="container-fluid mt-3 text-center">
