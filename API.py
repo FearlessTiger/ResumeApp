@@ -1,5 +1,5 @@
 import requests
-requested_school = input("What school would you like to go too? ")
+requested_school = input("What school would you like to go too?")
 
 # Set the API endpoint URL
 url = 'https://api.data.gov/ed/collegescorecard/v1/schools'
@@ -33,3 +33,4 @@ try:
     print(f"The ACT score midpoint (cumulative) is {act_cumulative_midpoint}")
 except:
     print(" \n ERROR, please only put 1 school at a time, and be sure you are spelling the University correctly. \n")
+    
