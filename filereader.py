@@ -18,7 +18,7 @@ def upload():
         pdf_reader = PyPDF2.PdfReader(file)
         page = pdf_reader.pages[0]
         x = page.extract_text()
-        return page.extract_text()
+        return x
     except:
         return "Error"
 
