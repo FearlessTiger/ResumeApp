@@ -12,7 +12,31 @@
     .navbar{
       margin-bottom: 1%;
     }
+    
   </style>
+  <script>
+    function getCollegeResults(){
+      const requestedSchool = document.getElementById('searchInput').value;
+      const apiKey = 'MnUaufQkXtASro2Exr2pidQCXJbx9wNWjBxsSf3g';
+      const url = `https://api.data.gov/ed/collegescorecard/v1/schools?api_key=${apiKey}&school.name=${requestedSchool}&_fields=id,school.name,latest.admissions.admission_rate.overall,latest.admissions.sat_scores.midpoint.math,latest.admissions.sat_scores.midpoint.critical_reading,latest.admissions.sat_scores.midpoint.writing,latest.admissions.act_scores.midpoint.cumulative`;
+
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+      const result = data.results[0];
+      const admissionRate = result['latest.admissions.admission_rate.overall'];
+      const satMathMidpoint = result['latest.admissions.sat_scores.midpoint.math'];
+      const satReadingMidpoint = result['latest.admissions.sat_scores.midpoint.critical_reading'];
+      const satWritingMidpoint = result['latest.admissions.sat_scores.midpoint.writing'];
+      const actCumulativeMidpoint = result['latest.admissions.act_scores.midpoint.cumulative'];
+      document.getElementById("College").innerHTML = `The admission rate for ${requestedSchool} is ${admissionRate} <br />` + `The SAT score midpoint for Math is ${satMathMidpoint} <br />` + `The SAT score midpoint for Critical Reading is ${satReadingMidpoint} <br />` + `The SAT score midpoint for Writing is ${satWritingMidpoint} <br />` +`The ACT score midpoint (cumulative) is ${actCumulativeMidpoint}`;
+
+     })
+    .catch(error => console.error(error));
+
+      }
+  </script>
+
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="main.html">My Website</a>
@@ -35,14 +59,13 @@
     </nav>
     <h1>College Search</h1>
     <form>
-      <label for="search">Search:</label>
-      <input type="text" id="search" name="search">
-      <button type="submit">Search</button>
+      <input type="text" placeholder="Search..." id="searchInput">
+      <button type="button" onclick="getCollegeResults()">Search</button>
     </form>
     <h2>Results</h2>
     <ul>
-      <li><a href="#">College Name 1</a></li>
-      <li><a href="#">College Name 2</a></li>
+      <li><a id="College">College Name 1</a></li>
+      <li><a >College Name 2</a></li>
       <li><a href="#">College Name 3</a></li>
       <li><a href="#">College Name 4</a></li>
     </ul>
