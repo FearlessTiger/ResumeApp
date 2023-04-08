@@ -31,6 +31,16 @@ try:
     print(f"The SAT score midpoint for Critical Reading is {sat_reading_midpoint}")
     print(f"The SAT score midpoint for Writing is {sat_writing_midpoint}")
     print(f"The ACT score midpoint (cumulative) is {act_cumulative_midpoint}")
+    
+    api_data = {
+        "admission_rate" : admission_rate,
+        "sat_math_midpoiont": sat_math_midpoint,
+        "sat_reading_midpoint" :  sat_reading_midpoint,
+        "sat_writing_midpoint" : sat_writing_midpoint,
+        "act_cumulative_midpoint" : act_cumulative_midpoint                
+                }
+    send = requests.post('http://localhost:5000/flask_function', json=api_data)
+    print(send.text)
 except:
     print(" \n ERROR, please only put 1 school at a time, and be sure you are spelling the University correctly. \n")
     

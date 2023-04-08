@@ -14,7 +14,7 @@
     }
     
   </style>
-  <script>
+  {# <script>
     function getCollegeResults(){
       const requestedSchool = document.getElementById('searchInput').value;
       const apiKey = 'MnUaufQkXtASro2Exr2pidQCXJbx9wNWjBxsSf3g';
@@ -35,7 +35,7 @@
     .catch(error => console.error(error));
 
       }
-  </script>
+  </script> #}
 
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -58,9 +58,9 @@
       </div>
     </nav>
     <h1>College Search</h1>
-    <form>
-      <input type="text" placeholder="Search..." id="searchInput">
-      <button type="button" onclick="getCollegeResults()">Search</button>
+    <form action = "/get_school_data" method="post">
+      <input type="searchInput" placeholder="Search..." id="searchInput" name="searchInput">
+      <input type="submit" value="Request">
     </form>
     <h2>Results</h2>
     <ul>
