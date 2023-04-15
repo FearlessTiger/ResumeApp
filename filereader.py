@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import PyPDF2
 import requests
+import re
 
 app = Flask(__name__)
 
@@ -18,8 +19,9 @@ def upload():
     try:
         pdf_reader = PyPDF2.PdfReader(file)
         page = pdf_reader.pages[0]
-        x = page.extract_text()
-        return x
+        resume = page.extract_text()
+        resumedata(resume)
+        return resume
     except:
         return "Error"
 
@@ -66,10 +68,31 @@ def get_school_data():
             "sat_writing_midpoint": sat_writing_midpoint,
             "act_cumulative_midpoint": act_cumulative_midpoint
         }
+        
+        
+        
         return api_data
     except:
         return (" \n ERROR, please only put 1 school at a time, and be sure you are spelling the University correctly. \n")
+    
+def resumedata(resume):
+        data = {}
+        resume = resume.lower()
+        # Define a regular expression pattern to match GPA values
+        gpa_pattern = r"\bgpa\b\s*:\s*([\d.]+)"
+
+        # Search for the GPA value in the resume text using the regular expression
+        match = re.search(gpa_pattern, resume)
+
+        if match:
+            # If a match is found, extract the GPA value
+            gpa = match.group(1)
+            print(f"GPA: {gpa}")
+            data.update({"GPA" : gpa})
+        else:
+            print("GPA not found in the resume text.")
 
 
 if __name__ == "__main__":
     app.run(debug=True)
+
