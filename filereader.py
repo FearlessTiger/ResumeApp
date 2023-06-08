@@ -7,6 +7,7 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.tag import pos_tag
 
+nltk.download('stopwords')
 
 
 
@@ -82,6 +83,17 @@ def get_school_data():
     except:
         return (" \n ERROR, please only put 1 school at a time, and be sure you are spelling the University correctly. \n")
     
+def skill_exists(skill):
+    url = f'https://api.apilayer.com/skills?q={skill}&amp;count=1'
+    headers = {'apikey': 'iHJJHf2OGCMoMVP2NhT6c63ZH2SeGeyY'}
+    response = requests.request('GET', url, headers=headers)
+    result = response.json()
+ 
+    if response.status_code == 200:
+        return len(result) &gt; 0 and result[0].lower() == skill.lower()
+    raise Exception(result.get('message'))
+
+   
 def resumedata(resume):
     data = {}
     resume = resume.lower()
@@ -99,27 +111,9 @@ def resumedata(resume):
     else:
         print("GPA not found in the resume text.")
 
-    sections = resume.split('\n\n')  # Split resume into sections based on empty lines
-    resume_data = {}
-    print(sections)
-
-    for section in sections:
-        lines = section.split('\n')
-        section_header = lines[0].strip().lower()
-        print(section_header)
-        section_content = ' '.join(lines[1:]).strip()
-
-        if section_header == 'education:':
-            resume_data['education'] = section_content
-        elif section_header == 'test scores:':
-            resume_data['test_scores'] = section_content
-        elif section_header == 'extracurricular activities:':
-            resume_data['extracurricular_activities'] = section_content
-        elif section_header == 'leadership positions:':
-            resume_data['leadership_positions'] = section_content
-
-    print(resume_data)
-
+    #Skills extraction
+    
+    
         
         
 
