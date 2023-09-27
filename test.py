@@ -1,87 +1,72 @@
-import PyPDF2
+import nltk
 import re
 
-def extract_name(text):
-    # Extract the name from the resume text
-    name_regex = r"([A-Z][a-z]+)(\s[A-Z][a-z]+)*"
-    name_match = re.search(name_regex, text)
-    if name_match:
-        return name_match.group(0)
-    return ""
+nltk.download()
 
-def extract_email(text):
-    # Extract the email address from the resume text
-    email_regex = r"[\w\.-]+@[\w\.-]+\.\w+"
-    email_match = re.search(email_regex, text)
-    if email_match:
-        return email_match.group(0)
-    return ""
+from nltk.tokenize import sent_tokenize, word_tokenize
+from nltk.tag import pos_tag
 
-def extract_phone_number(text):
-    # Extract the phone number from the resume text
-    phone_regex = r"\+?\d{1,3}[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-    phone_match = re.search(phone_regex, text)
-    if phone_match:
-        return phone_match.group(0)
-    return ""
+def parse_resume(resume_text):
+    # Initialize variables to store parsed information
+    name = None
+    email = None
+    phone = None
+    skills = []
+    experience = []
+    education = []
 
-def extract_skills(text):
-    # Extract skills from the resume text
-    skills = ["Python", "Java", "C++", "SQL"]  # Add more skills as needed
-    extracted_skills = []
-    for skill in skills:
-        if skill.lower() in text.lower():
-            extracted_skills.append(skill)
-    return extracted_skills
+    # Tokenize the resume text into sentences
+    sentences = sent_tokenize(resume_text)
 
-def extract_test_scores(text):
-    # Extract test scores from the resume text
-    test_scores = []
-    test_regex = r"(SAT|ACT|GRE|GMAT):\s?(\d+)"
-    test_matches = re.findall(test_regex, text)
-    for match in test_matches:
-        test_scores.append({"Test": match[0], "Score": match[1]})
-    return test_scores
+    for sentence in sentences:
+        # Tokenize each sentence into words
+        words = word_tokenize(sentence)
 
-def extract_courses(text):
-    # Extract courses from the resume text
-    courses = []
-    course_regex = r"Courses?:\s?(.+?)(?:(?:\n{2,})|\Z)"
-    course_match = re.search(course_regex, text, re.DOTALL)
-    if course_match:
-        courses_text = course_match.group(1)
-        courses = re.findall(r"\b[A-Z]{2,}\b(?:\s+\d{3})?", courses_text)
-    return courses
+        # Perform part-of-speech tagging to identify named entities
+        tagged_words = pos_tag(words)
 
-def parse_resume(file_path):
-    # Parse the resume PDF and extract relevant information
-    with open(file_path, "rb") as file:
-        pdf_reader = PyPDF2.PdfReader(file)
-        text = ""
-        for page in pdf_reader.pages:
-            text += page.extract_text()
+        # Extract information based on named entities and patterns
+        for word, tag in tagged_words:
+            if tag == 'NNP' and not name:
+                name = word
+            elif re.match(r'\S+@\S+', word) and not email:
+                email = word
+            elif re.match(r'\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}', word) and not phone:
+                phone = word
 
-    name = extract_name(text)
-    email = extract_email(text)
-    phone_number = extract_phone_number(text)
-    skills = extract_skills(text)
-    test_scores = extract_test_scores(text)
-    courses = extract_courses(text)
+        # You can add more parsing logic here to extract skills, experience, and education.
 
-    # Return the extracted information as a dictionary
-    resume_data = {
+    return {
         "Name": name,
         "Email": email,
-        "Phone Number": phone_number,
+        "Phone": phone,
         "Skills": skills,
-        "Test Scores": test_scores,
-        "Courses": courses
+        "Experience": experience,
+        "Education": education
     }
-    return resume_data
 
-# Usage example
-resume_file = "ResumeFeb2023.pdf"  
-parsed_data = parse_resume(resume_file)
-print(parsed_data)
+if __name__ == "__main__":
+    # Example resume text (replace with your actual resume text)
+    resume_text = """
+    John Doe
+    john.doe@email.com
+    (123) 456-7890
 
+    Skills:
+    - Python
+    - Data Analysis
+    - Machine Learning
 
+    Experience:
+    - Data Scientist, Company X, 2020-present
+      - Conducted data analysis and built machine learning models.
+
+    Education:
+    - Bachelor's in Computer Science, University Y, 2019
+    """
+
+    parsed_resume = parse_resume(resume_text)
+
+    # Print the parsed information
+    for key, value in parsed_resume.items():
+        print(f"{key}: {value}")

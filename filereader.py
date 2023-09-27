@@ -83,15 +83,6 @@ def get_school_data():
     except:
         return (" \n ERROR, please only put 1 school at a time, and be sure you are spelling the University correctly. \n")
     
-def skill_exists(skill):
-    url = f'https://api.apilayer.com/skills?q={skill}&amp;count=1'
-    headers = {'apikey': 'iHJJHf2OGCMoMVP2NhT6c63ZH2SeGeyY'}
-    response = requests.request('GET', url, headers=headers)
-    result = response.json()
- 
-    # if response.status_code == 200:
-    #     return len(result) &gt; 0 and result[0].lower() == skill.lower()
-    # raise Exception(result.get('message'))
 
    
 def resumedata(resume):
