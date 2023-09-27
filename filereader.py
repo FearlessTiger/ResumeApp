@@ -89,9 +89,9 @@ def skill_exists(skill):
     response = requests.request('GET', url, headers=headers)
     result = response.json()
  
-    if response.status_code == 200:
-        return len(result) &gt; 0 and result[0].lower() == skill.lower()
-    raise Exception(result.get('message'))
+    # if response.status_code == 200:
+    #     return len(result) &gt; 0 and result[0].lower() == skill.lower()
+    # raise Exception(result.get('message'))
 
    
 def resumedata(resume):
