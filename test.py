@@ -17,9 +17,14 @@ def parse_resume(resume_text):
     words = text.split()
 
     sentances = sent_tokenize(resume_text)
+    
+    #Email phrasing
     email_expression = "\A[\w!#$%&'*+/=?`{|}~^-]+(?:\.[\w!#$%&'*+/=?`{|}~^-]+)*@↵(?:[A-Z0-9-]+\.)+[A-Z]{2,6}\Z"
     emails = re.findall(r"[a-z0-9\.\-+_]+@[a-z0-9\.\-+_]+\.[a-z]+", resume_text)
-    return emails
+    #Phone phrasing
+    phoneRegex =  r'\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}'
+    phones = re.findall(phoneRegex, resume_text)
+    return phones
     
 
 
@@ -30,7 +35,7 @@ def parse_resume(resume_text):
 resume_text = """
     John Doe
     john.doe@email.com
-    (123) 456-7890
+    123-456-7890
 
     Skills:
     - Python
